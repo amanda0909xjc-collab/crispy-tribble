@@ -342,9 +342,10 @@
                             <label for="trc20-account">TRC-20 接收账户</label>
                             <select id="trc20-account" required>
                                 <!-- 动态加载账户 -->
+                                <option value="" disabled selected>请先添加TRC-20账户</option>
                             </select>
                             <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                <button type="button" class="btn btn-outline" id="random-account">随机选择账户</button>
+                                <button type="button" class="btn btn-outline" id="random-account" disabled>随机选择账户</button>
                                 <button type="button" class="btn btn-outline" id="manual-account-btn">手工输入账户</button>
                             </div>
                         </div>
@@ -485,7 +486,7 @@
         <div class="tab-content" id="accounts">
             <div class="card">
                 <div class="card-title">
-                    <i>💰</i> TRC-20 账户余额（系统默认50个 + 手工添加账户）
+                    <i>💰</i> TRC-20 账户余额（仅手工添加账户）
                 </div>
                 <div style="margin-bottom: 15px;">
                     <button class="btn btn-outline" id="add-account-btn">手工添加新账户</button>
@@ -525,7 +526,9 @@
                             </tr>
                         </thead>
                         <tbody id="accounts-table">
-                            <!-- 动态加载账户数据 -->
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-20账户</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -548,60 +551,6 @@
     </div>
 
     <script>
-        // 50个默认TRC-20账户地址
-        const DEFAULT_TRC20_ACCOUNTS = [
-            "TE2UtoZt5NYruVgtCKPGe7UYzvzfnCShaR",
-            "TLFf1xkWQfB8qHaVTHEodeVkqpmJjATdqM",
-            "TFJJ3MuiCbv3udfYrpexHAcFm4MSN6oTPr",
-            "TEqDkeexGrs8GYTCpVBTcet6u5eyh3XKZC",
-            "TLXbWE4MR37h1H68SHAdhiWXqcmdtaQpmu",
-            "TU3sPd3zu3Qx8tfdUg46Adqq17UErL3gUx",
-            "TR8bHGitQaZmSxb5oJyb855U1hzufoaCGG",
-            "TF8AZ4GAd6jRfVPt4aNiGkeGtJnujVpB4V",
-            "TQ1pi1yTuXf1AwNC9TwWti6NSN9x9vUbzV",
-            "TXKbDiFe2xmaVcXEjxkg4dgobDfs4uK4c2",
-            "TKSGLa1uuANgJ9Q4roqnsXAX3B89HPPd1K",
-            "TSE8d8tySskeZj2dwxQRyXDjidjPhQoi7e",
-            "TKf9XryhdNYUFDS1URa4nEbMkdCu4ebs6o",
-            "TP7poe8BUgcUr84tdoPLWMn7MdqtSF3DX3",
-            "TATF6jtWbuA8zcpQaumGEszzzzFMLZzjm1",
-            "TPrBTBXHR4wFN7t7ukeDHhqEHZfHQ3NZbp",
-            "TU4tWM6s5eKrDKYZRswMvjA1GJ59oS87SM",
-            "TYE2qmtunQmRSjowJEBUzb4GJMnTMgo2Qo",
-            "TRpaqLxwGm87TPMFfGNuhrZgzZfwf7HtXp",
-            "TDeBDF1voiSRR3e2Dx4Jhk2K1GSthRopv9",
-            "TUF3D5NAFHBYomAcsGmwk2BvKyV7sUCTdb",
-            "TKV4nRkwaiX9Cf3akt2gYjJ8vkL5d2DGHk",
-            "TNeqjLWavsf6MqwjoNExzyMAST5fKKk9wF",
-            "TVGUgrV88m6yMEgVdK9NWSrfg8Xc3BY9gt",
-            "TDwwPKmhY1RgbXcLxbmpWny1Y55DeX6bda",
-            "TZ3PY8nzicC1h7bXzBNFJx6hFtxCfxKbJK",
-            "TBCzNNP97dU6geAgXDkh4Z4x1QRbiWJaGx",
-            "TA5Re48oRuo1GfjBmctievEgAH2XfCwQof",
-            "TZ5QtJ7F1y1Ko3dcvnuvasL8TDFi9z7yR7",
-            "TBZ7ePo7AsrjcWCErNtWDwJyBDnUxSpsoQ",
-            "TGMejQHGYVKbLLn1d4cx8wF2Bk5v1ttwjb",
-            "TNA3VNShFczH73jBCYyq8nFxw6Zw16MEuJ",
-            "TUsyR9ZbgP2o2PD9setitGwjjqWUhkpYg8",
-            "TK9FrGA5ZiUt5N3Fw38TkDKWyMexW7LYyS",
-            "TG3n7hJe4xNzKcP3GH1nLngcyYqFi2xWht",
-            "TN5crnFAadjvqtk9XQ3FVr1S3pK1W3V73t",
-            "TKP46Xzo2KoKoZ5Kp2E859ts21EkTxyrXC",
-            "TT21sM4egc4MzqnbfKsoXZUNJDzeqQcsW7",
-            "TBkzBDz4zvpTFqi1GJTGJw9kkfvyRBGiPX",
-            "TXRJmYSEGYqzKaXL8JcbPz8a6fLYkDvuHA",
-            "TV4dbB48MBBDGeLaXhs5HVsQvErZ7fbRrb",
-            "TPtZEVVUBbzEVgAw8R93fGtqKzZV3p1wbt",
-            "TAPUYP7tVbNmTnHkdyDaZ52se4m7h5kQqU",
-            "TJD33gmgmdNxVWkb7qk57xEfY36g2GWg3b",
-            "TE8S87uDrKkz3CrL4Hs1PeYdgdPuR9VPRg",
-            "TS4wrkUZP3jA3Hk2VdYDahwWEBt6QyEoah",
-            "TFrmqJG24TrrsPxovAUK36FD2G4BN6XyN4",
-            "TRsJAA74SpovHAENsaKLJyTSFExJYKcyDc",
-            "TJJXjEgLNBHtMnfXsyPo3UZUMk7Y9MV8RU",
-            "TN8W8CRGd6Vs5fTLy5CdjF88oNLeYnVMM5"
-        ];
-
         // 时区配置：{地区名: {国家, UTC偏移, 时区缩写}}
         const TIMEZONES = {
             "NewYork": { country: "美国", offset: -4, tz: "EDT" },
@@ -614,7 +563,7 @@
             "Berlin": { country: "德国", offset: 2, tz: "CEST" }
         };
 
-        // 全局状态（新增手工添加的账户管理）
+        // 全局状态（仅保留手工添加的账户管理）
         const state = {
             currentRate: 1.0,
             accountBalances: {},
@@ -631,16 +580,8 @@
             return trc20Regex.test(address.trim());
         }
 
-        // 初始化账户（默认账户 + 手工账户）
+        // 初始化账户（仅加载手工账户）
         function initAccounts() {
-            // 初始化默认账户
-            DEFAULT_TRC20_ACCOUNTS.forEach(addr => {
-                state.accountBalances[addr] = 0.0;
-                if (!state.accountNotes[addr]) {
-                    state.accountNotes[addr] = "系统默认账户";
-                }
-            });
-
             // 加载本地存储的手工账户（如果有）
             const savedManualAccounts = localStorage.getItem('manualTRC20Accounts');
             if (savedManualAccounts) {
@@ -659,28 +600,35 @@
             localStorage.setItem('manualTRC20Accounts', JSON.stringify(state.manualAccounts));
         }
 
-        // 初始化账户下拉框（包含默认账户和手工账户）
+        // 初始化账户下拉框（仅包含手工账户）
         function initAccountSelect() {
             const select = document.getElementById('trc20-account');
+            const randomBtn = document.getElementById('random-account');
             select.innerHTML = ''; // 清空原有选项
 
-            // 添加默认账户
-            DEFAULT_TRC20_ACCOUNTS.forEach((addr, index) => {
+            // 如果没有手工账户，显示提示
+            if (state.manualAccounts.length === 0) {
                 const option = document.createElement('option');
-                option.value = addr;
-                const note = state.accountNotes[addr] || "系统默认账户";
-                option.textContent = `[默认] ${note}：${addr.substring(0, 10)}...`;
+                option.value = "";
+                option.disabled = true;
+                option.selected = true;
+                option.textContent = "请先添加TRC-20账户";
                 select.appendChild(option);
-            });
+                randomBtn.disabled = true;
+                return;
+            }
 
             // 添加手工账户
             state.manualAccounts.forEach((account, index) => {
                 const option = document.createElement('option');
                 option.value = account.address;
                 const note = account.note || "手工添加账户";
-                option.textContent = `[手工] ${note}：${account.address.substring(0, 10)}...`;
+                option.textContent = `${note}：${account.address.substring(0, 10)}...`;
                 select.appendChild(option);
             });
+            
+            // 启用随机选择按钮
+            randomBtn.disabled = false;
         }
 
         // 获取UTC时间
@@ -773,42 +721,38 @@
             document.getElementById('trading-status').style.color = isTrading ? '#38b2ac' : '#e53e3e';
         }
 
-        // 更新账户表格（包含手工账户和操作功能）
+        // 更新账户表格（仅显示手工账户）
         function updateAccountsTable() {
             const table = document.getElementById('accounts-table');
             table.innerHTML = '';
 
-            // 合并所有账户（默认账户 + 手工账户）
-            const allAccounts = [
-                ...DEFAULT_TRC20_ACCOUNTS.map(addr => ({
-                    address: addr,
-                    note: state.accountNotes[addr] || "系统默认账户",
-                    isDefault: true
-                })),
-                ...state.manualAccounts.map(account => ({
-                    ...account,
-                    isDefault: false
-                }))
-            ];
+            // 如果没有手工账户，显示提示
+            if (state.manualAccounts.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-20账户</td>`;
+                table.appendChild(row);
+                
+                // 更新活跃账户数
+                document.getElementById('active-accounts').textContent = '0';
+                return;
+            }
 
             // 按余额降序排序
-            const sortedAccounts = allAccounts.sort((a, b) => {
+            const sortedAccounts = state.manualAccounts.sort((a, b) => {
                 const balanceA = state.accountBalances[a.address] || 0;
                 const balanceB = state.accountBalances[b.address] || 0;
                 return balanceB - balanceA;
             });
 
             sortedAccounts.forEach((account, index) => {
-                const { address, note, isDefault } = account;
+                const { address, note } = account;
                 const balance = state.accountBalances[address] || 0;
                 const isActive = balance > 0;
                 
                 const row = document.createElement('tr');
                 
-                // 操作按钮：默认账户不可删除，手工账户可删除
-                const actionBtn = isDefault 
-                    ? '<button type="button" class="btn btn-outline btn-sm" disabled>默认账户</button>'
-                    : `<button type="button" class="btn btn-outline btn-sm delete-account" data-address="${address}">删除</button>`;
+                // 操作按钮：手工账户可删除
+                const actionBtn = `<button type="button" class="btn btn-outline btn-sm delete-account" data-address="${address}">删除</button>`;
                 
                 row.innerHTML = `
                     <td>${index + 1}</td>
@@ -817,9 +761,7 @@
                     <td>${balance.toFixed(6)}</td>
                     <td>${isActive 
                         ? '<span class="badge badge-success">活跃</span>' 
-                        : isDefault 
-                            ? '<span class="badge badge-warning">未使用</span>' 
-                            : '<span class="badge badge-failed">未使用</span>'
+                        : '<span class="badge badge-failed">未使用</span>'
                     }</td>
                     <td class="account-actions">${actionBtn}</td>
                 `;
@@ -962,6 +904,13 @@
             const account = document.getElementById('trc20-account').value;
             const password = document.getElementById('trade-password').value;
 
+            // 检查是否有账户
+            if (!account) {
+                alert('请先添加并选择TRC-20账户！');
+                addLog(`交易失败：用户${user}未选择TRC-20账户`, 'error');
+                return;
+            }
+
             // 清除之前的错误提示
             const passwordError = document.getElementById('password-error');
             passwordError.classList.remove('show');
@@ -1076,44 +1025,36 @@
 
         // 导出账户余额
         function exportAccounts() {
+            if (state.manualAccounts.length === 0) {
+                alert('暂无账户记录可导出');
+                return;
+            }
+
             let content = `TRC-20 账户余额表\n`;
             content += `生成时间：${formatTime(getUtcTime())}\n`;
             content += `========================================================================\n`;
             content += `序号\t账户地址\t账户备注\t余额(TRC-20)\t状态\t账户类型\n`;
 
-            // 合并所有账户
-            const allAccounts = [
-                ...DEFAULT_TRC20_ACCOUNTS.map(addr => ({
-                    address: addr,
-                    note: state.accountNotes[addr] || "系统默认账户",
-                    type: "系统默认"
-                })),
-                ...state.manualAccounts.map(account => ({
-                    address: account.address,
-                    note: account.note || "手工添加账户",
-                    type: "手工添加"
-                }))
-            ];
-
-            const sortedAccounts = allAccounts.sort((a, b) => {
+            // 按余额降序排序
+            const sortedAccounts = state.manualAccounts.sort((a, b) => {
                 const balanceA = state.accountBalances[a.address] || 0;
                 const balanceB = state.accountBalances[b.address] || 0;
                 return balanceB - balanceA;
             });
 
             sortedAccounts.forEach((account, index) => {
-                const { address, note, type } = account;
+                const { address, note } = account;
                 const balance = state.accountBalances[address] || 0;
                 const status = balance > 0 ? '活跃' : '未使用';
-                content += `${index + 1}\t${address}\t${note}\t${balance.toFixed(6)}\t${status}\t${type}\n`;
+                content += `${index + 1}\t${address}\t${note}\t${balance.toFixed(6)}\t${status}\t手工添加\n`;
             });
 
             const totalBalance = Object.values(state.accountBalances).reduce((sum, bal) => sum + bal, 0);
             const activeCount = Object.values(state.accountBalances).filter(bal => bal > 0).length;
-            const totalAccounts = DEFAULT_TRC20_ACCOUNTS.length + state.manualAccounts.length;
+            const totalAccounts = state.manualAccounts.length;
             
             content += `========================================================================\n`;
-            content += `总账户数：${totalAccounts}（系统默认：${DEFAULT_TRC20_ACCOUNTS.length}，手工添加：${state.manualAccounts.length}）\n`;
+            content += `总账户数：${totalAccounts}（均为手工添加）\n`;
             content += `活跃账户数：${activeCount}/${totalAccounts}\n`;
             content += `总余额：${totalBalance.toFixed(6)} TRC-20\n`;
 
@@ -1204,8 +1145,7 @@
                 }
 
                 // 检查地址是否已存在
-                const addressExists = DEFAULT_TRC20_ACCOUNTS.includes(address) || 
-                                      state.manualAccounts.some(account => account.address === address);
+                const addressExists = state.manualAccounts.some(account => account.address === address);
                 
                 if (addressExists) {
                     manualAccountError.textContent = '该账户地址已存在！';
@@ -1284,8 +1224,7 @@
                 }
 
                 // 检查地址是否已存在
-                const addressExists = DEFAULT_TRC20_ACCOUNTS.includes(address) || 
-                                      state.manualAccounts.some(account => account.address === address);
+                const addressExists = state.manualAccounts.some(account => account.address === address);
                 
                 if (addressExists) {
                     newAccountError.textContent = '该账户地址已存在！';
@@ -1355,7 +1294,7 @@
                 document.getElementById('password-error').classList.remove('show');
             });
 
-            addLog('初始化完成，已加载50个系统默认TRC-20账户', 'success');
+            addLog('初始化完成，系统仅支持手工添加TRC-20账户', 'success');
             addLog('手工输入账户功能已启用，支持添加/删除/管理自定义账户', 'info');
         }
         

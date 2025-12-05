@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -297,7 +298,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>跨地区 ERC-20 → TRC-20 </h1>
+            <h1>跨地区 TRC-20代币充值 </h1>
             <p>支持多国家/地区、时差处理、TRC-20账户管理（含手工输入）</p>
         </div>
 
@@ -319,7 +320,7 @@
                     <form id="trade-form">
                         <div class="form-group">
                             <label for="user">用户名</label>
-                            <input type="text" id="user" value="用户_${Math.floor(Math.random()*1000)}" required>
+                            <input type="text" id="user" value="用户名点击输入" required>
                         </div>
                         <div class="form-group">
                             <label for="from-region">发起地区</label>
@@ -339,13 +340,13 @@
                             <input type="number" id="amount" min="0.000001" step="0.000001" value="100.0" required>
                         </div>
                         <div class="form-group">
-                            <label for="trc20-account">TRC-20 接收账户</label>
+                            <label for="trc20-account"></label>
                             <select id="trc20-account" required>
                                 <!-- 动态加载账户 -->
                                 <option value="" disabled selected>请先添加TRC-20账户</option>
                             </select>
                             <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                <button type="button" class="btn btn-outline" id="random-account" disabled>随机选择账户</button>
+                                <button type="button" class="btn btn-outline" id="random-account" disabled></button>
                                 <button type="button" class="btn btn-outline" id="manual-account-btn">手工输入账户</button>
                             </div>
                         </div>

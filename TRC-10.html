@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT TRC-10 极速充值 | 低手续费 秒到账</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* 顶部导航栏 */
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .contact-btn {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 主广告区域 */
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1), transparent 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        
+        /* 充值卡片 */
+        .recharge-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .recharge-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .card-title img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .address-box {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .address-label {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        
+        .address-value {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            word-break: break-all;
+            color: #e2e8f0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .copy-btn {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+        
+        .tips {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 15px;
+            line-height: 1.6;
+            text-align: left;
+        }
+        
+        .tips li {
+            margin-bottom: 8px;
+            list-style: none;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .tips li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        
+        /* 优势展示 */
+        .advantages {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .advantage-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .advantage-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #3b82f6;
+        }
+        
+        .advantage-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .advantage-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        /* 底部信息 */
+        .footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            margin-top: 60px;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #3b82f6;
+        }
+        
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #3b82f6;
+        }
+        
+        .modal-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-btn {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .recharge-card {
+                padding: 20px;
+            }
+            
+            .advantage-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/921/921599.png" alt="USDT Logo">
+            <div class="logo-text">USDT TRC-10 充值中心</div>
+        </div>
+        <button class="contact-btn">联系客服</button>
+    </header>
+
+    <!-- 主广告区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">USDT TRC-10 极速充值<br>低手续费 · 秒到账 · 全球通用</h1>
+            <p class="hero-subtitle">支持TRON网络 USDT (TRC-10) 代币充值，<span class="highlight">0.1%超低手续费</span>，充值后自动到账，无需人工审核，24小时不间断服务！</p>
+            
+            <!-- 充值卡片 -->
+            <div class="recharge-card">
+                <div class="card-title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/921/921599.png" alt="USDT">
+                    USDT TRC-10 充值地址
+                </div>
+                <div class="address-box">
+                    <div class="address-label">充值地址（复制后转账）：</div>
+                    <div class="address-value" id="usdt-address">TN216KZDD8MYUj5GuMqLeHyyAXcH8kVemE</div>
+                    <button class="copy-btn" onclick="copyAddress()">📋 复制充值地址</button>
+                </div>
+                <ul class="tips">
+                    <li>仅支持 USDT (TRC-10) 代币转账，其他代币转账将无法到账且不予退还</li>
+                    <li>充值地址为TRON主网地址（以T开头），请确认转账网络为TRC-10</li>
+                    <li>充值金额无下限，到账时间约3-10秒，可在Tronscan查询交易哈希</li>
+                    <li>充值成功后系统自动入账，如有问题请联系在线客服</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 优势展示 -->
+    <section class="advantages">
+        <h2 class="section-title">为什么选择我们的 USDT TRC-10 充值</h2>
+        <div class="advantage-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">⚡</div>
+                <h3 class="advantage-title">极速到账</h3>
+                <p class="advantage-desc">TRON网络出块速度快，充值后3-10秒自动到账，无需等待人工审核，即时可用。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">💰</div>
+                <h3 class="advantage-title">超低制作TRC-10</h3>
+                <p class="advantage-desc">仅收取0.1%的充值手续费，远低于行业平均水平，大额充值更划算。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🔒</div>
+                <h3 class="advantage-title">安全可靠</h3>
+                <p class="advantage-desc">基于TRON区块链技术，交易记录不可篡改，充值地址多重验证，资产安全有保障。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🌐</div>
+                <h3 class="advantage-title">全球通用</h3>
+                <p class="advantage-desc">TRC-10 USDT无地域限制，支持全球任意地区充值，24小时不间断服务。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">📱</div>
+                <h3 class="advantage-title">便捷操作</h3>
+                <p class="advantage-desc">支持所有TRC-10钱包转账，复制地址即可充值，操作简单，新手也能轻松上手。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">💬</div>
+                <h3 class="advantage-title">7×24客服</h3>
+                <p class="advantage-desc">专业客服团队7×24小时在线，随时解答充值问题，保障您的充值体验。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <p class="footer-text">
+            温馨提示：充值前请仔细核对充值地址，确认转账代币为USDT (TRC-10)。<br>
+            本平台仅提供充值通道服务，数字资产投资有风险，充值前请谨慎决策。<br>
+            © 2025 USDT TRC-10 充值中心 版权所有
+        </p>
+    </footer>
+
+    <!-- 复制成功弹窗 -->
+    <div class="modal" id="copy-modal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <div class="modal-text">充值地址复制成功！</div>
+            <button class="modal-btn" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        // 复制地址功能
+        function copyAddress() {
+            const address = document.getElementById('usdt-address').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                openModal();
+            }).catch(err => {
+                alert('复制失败，请手动复制地址：' + address);
+                console.error('复制失败:', err);
+            });
+        }
+
+        // 打开弹窗
+        function openModal() {
+            document.getElementById('copy-modal').style.display = 'flex';
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('copy-modal').style.display = 'none';
+        }
+
+        // 点击空白处关闭弹窗
+        window.onclick = function(event) {
+            const modal = document.getElementById('copy-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // 模拟客服按钮点击
+        document.querySelector('.contact-btn').addEventListener('click', function() {
+            alert('纸飞机客服：@liuqian20251202 | 客服邮箱：317856698@qq.com');
+        });
+
+        // 页面滚动动画
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.advantage-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (cardTop < windowHeight * 0.8) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // 初始化设置
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.advantage-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s, transform 0.5s';
+            });
+
+            // 触发一次滚动事件，显示可见区域的卡片
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>

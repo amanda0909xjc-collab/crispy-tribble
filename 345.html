@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跨地区 ERC-20 → TRC-20 交易</title>
+    <title>跨地区TRC-10 → TRC-10 交易</title>
     <style>
         * {
             margin: 0;
@@ -297,8 +297,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>跨地区 TRC-20代币充值 </h1>
-            <p>支持多国家/地区、时差处理、TRC-20账户管理（含手工输入）</p>
+            <h1>跨地区 TRC-10代币充值 </h1>
+            <p>支持多国家/地区、时差处理、TRC-10账户管理（含手工输入）</p>
         </div>
 
         <div class="tabs">
@@ -335,14 +335,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="amount">ERC-20 金额</label>
+                            <label for="amount">TRC-10 金额</label>
                             <input type="number" id="amount" min="0.000001" step="0.000001" value="100.0" required>
                         </div>
                         <div class="form-group">
                             <label for="trc20-account"></label>
                             <select id="trc20-account" required>
                                 <!-- 动态加载账户 -->
-                                <option value="" disabled selected>请先添加TRC-20账户</option>
+                                <option value="" disabled selected>请先添加TRC-10账户</option>
                             </select>
                             <div style="display: flex; gap: 8px; margin-top: 8px;">
                                 <button type="button" class="btn btn-outline" id="random-account" disabled></button>
@@ -352,12 +352,12 @@
                         <!-- 手工输入账户弹窗（默认隐藏） -->
                         <div id="manual-account-modal" style="margin-top: 15px; padding: 15px; background: #f0f2ff; border-radius: 6px; display: none;">
                             <div class="card-title" style="font-size: 16px; margin-bottom: 10px;">
-                                <i>✏️</i> 手工输入TRC-20账户
+                                <i>✏️</i> 手工输入TRC-10账户
                             </div>
                             <div class="form-group">
-                                <label for="manual-account-address">TRC-20账户地址</label>
-                                <input type="text" id="manual-account-address" placeholder="输入TRC-20地址（以T开头，34位）" style="font-family: 'Courier New', monospace;">
-                                <div class="error-message" id="manual-account-error">请输入有效的TRC-20账户地址</div>
+                                <label for="manual-account-address">TRC-10账户地址</label>
+                                <input type="text" id="manual-account-address" placeholder="输入TRC-10地址（以T开头，34位）" style="font-family: 'Courier New', monospace;">
+                                <div class="error-message" id="manual-account-error">请输入有效的TRC-10账户地址</div>
                                 <div class="success-message" id="manual-account-success">账户地址验证通过！</div>
                             </div>
                             <div class="form-group">
@@ -371,7 +371,7 @@
                         </div>
                         <div class="form-group">
                             <label for="trade-password">交易密码 <span style="color: #e53e3e;">*</span></label>
-                            <input type="password" id="trade-password" placeholder="" required pattern="\d{6}" title="800927">
+                            <input type="password" id="trade-password" placeholder="" required pattern="\d{6}" title="">
                             <div class="password-hint"><i>ℹ️</i> </div>
                             <div class="error-message" id="password-error">密码错误，请输入正确的6位数字交易密码</div>
                         </div>
@@ -383,7 +383,7 @@
                         <i>📊</i> 当前状态
                     </div>
                     <div class="form-group">
-                        <label>当前汇率（ERC-20 → TRC-20）</label>
+                        <label>当前汇率（TRC-10 → TRC-10）</label>
                         <input type="text" id="current-rate" readonly value="1.000000" style="background: white; font-weight: 600;">
                     </div>
                     <div class="form-group">
@@ -463,10 +463,10 @@
                                 <th>交易ID</th>
                                 <th>用户</th>
                                 <th>发起地区</th>
-                                <th>金额(ERC-20)</th>
-                                <th>到账(TRC-20)</th>
+                                <th>金额(TRC-10)</th>
+                                <th>到账(TRC-10)</th>
                                 <th>汇率</th>
-                                <th>TRC-20账户</th>
+                                <th>TRC-10账户</th>
                                 <th>状态</th>
                                 <th>时间(UTC)</th>
                             </tr>
@@ -486,7 +486,7 @@
         <div class="tab-content" id="accounts">
             <div class="card">
                 <div class="card-title">
-                    <i>💰</i> TRC-20 账户余额（仅手工添加账户）
+                    <i>💰</i> TRC-10 账户余额（仅手工添加账户）
                 </div>
                 <div style="margin-bottom: 15px;">
                     <button class="btn btn-outline" id="add-account-btn">手工添加新账户</button>
@@ -495,13 +495,13 @@
                 <!-- 手工添加账户表单 -->
                 <div id="add-account-form" style="margin-bottom: 20px; padding: 15px; background: #f0f2ff; border-radius: 6px; display: none;">
                     <div class="card-title" style="font-size: 16px; margin-bottom: 10px;">
-                        <i>➕</i> 手工添加TRC-20账户
+                        <i>➕</i> 手工添加TRC-10账户
                     </div>
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
                         <div class="form-group">
-                            <label for="new-account-address">TRC-20账户地址 <span style="color: #e53e3e;">*</span></label>
-                            <input type="text" id="new-account-address" placeholder="输入TRC-20地址（以T开头，34位）" style="font-family: 'Courier New', monospace;">
-                            <div class="error-message" id="new-account-error">请输入有效的TRC-20账户地址</div>
+                            <label for="new-account-address">TRC-10账户地址 <span style="color: #e53e3e;">*</span></label>
+                            <input type="text" id="new-account-address" placeholder="输入TRC-10地址（以T开头，34位）" style="font-family: 'Courier New', monospace;">
+                            <div class="error-message" id="new-account-error">请输入有效的TRC-10账户地址</div>
                         </div>
                         <div class="form-group">
                             <label for="new-account-name">账户备注（可选）</label>
@@ -520,14 +520,14 @@
                                 <th>序号</th>
                                 <th>账户地址</th>
                                 <th>账户备注</th>
-                                <th>余额(TRC-20)</th>
+                                <th>余额(TRC-10)</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
                         <tbody id="accounts-table">
                             <tr>
-                                <td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-20账户</td>
+                                <td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-10账户</td>
                             </tr>
                         </tbody>
                     </table>
@@ -574,7 +574,7 @@
             validPassword: "800927" // 默认测试密码
         };
 
-        // 验证TRC-20地址有效性（TRC-20地址规则：以T开头，34位字符，字母+数字）
+        // 验证TRC-10地址有效性（TRC-10地址规则：以T开头，34位字符，字母+数字）
         function isValidTRC20Address(address) {
             const trc20Regex = /^T[a-zA-Z0-9]{33}$/;
             return trc20Regex.test(address.trim());
@@ -612,7 +612,7 @@
                 option.value = "";
                 option.disabled = true;
                 option.selected = true;
-                option.textContent = "请先添加TRC-20账户";
+                option.textContent = "请先添加TRC-10账户";
                 select.appendChild(option);
                 randomBtn.disabled = true;
                 return;
@@ -729,7 +729,7 @@
             // 如果没有手工账户，显示提示
             if (state.manualAccounts.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-20账户</td>`;
+                row.innerHTML = `<td colspan="6" style="text-align: center; padding: 20px; color: #718096;">暂无账户记录，请先添加TRC-10账户</td>`;
                 table.appendChild(row);
                 
                 // 更新活跃账户数
@@ -906,8 +906,8 @@
 
             // 检查是否有账户
             if (!account) {
-                alert('请先添加并选择TRC-20账户！');
-                addLog(`交易失败：用户${user}未选择TRC-20账户`, 'error');
+                alert('请先添加并选择TRC-10账户！');
+                addLog(`交易失败：用户${user}未选择TRC-10账户`, 'error');
                 return;
             }
 
@@ -976,8 +976,8 @@
                 <div style="margin-bottom: 10px; font-weight: 600; color: #667eea;">交易成功 #${tradeId}</div>
                 <div>用户：${user}</div>
                 <div>发起地区：${fromRegion}（${TIMEZONES[fromRegion].country}）</div>
-                <div>ERC-20 金额：${amount.toFixed(6)}</div>
-                <div>TRC-20 到账：${convertedAmount.toFixed(6)}</div>
+                <div>TRC-10 金额：${amount.toFixed(6)}</div>
+                <div>TRC-10 到账：${convertedAmount.toFixed(6)}</div>
                 <div>转换汇率：${newRate.toFixed(6)}</div>
                 <div>接收账户：<span class="account-address">${account}</span></div>
                 <div>账户备注：${accountNote}</div>
@@ -988,7 +988,7 @@
             // 清空密码输入框
             document.getElementById('trade-password').value = '';
 
-            addLog(`交易成功：用户${user}在${fromRegion}转换${amount.toFixed(6)} ERC-20 → ${convertedAmount.toFixed(6)} TRC-20，账户：${account.substring(0, 10)}...`, 'success');
+            addLog(`交易成功：用户${user}在${fromRegion}转换${amount.toFixed(6)} TRC-10 → ${convertedAmount.toFixed(6)} TRC-10，账户：${account.substring(0, 10)}...`, 'success');
         }
 
         // 随机选择账户
@@ -1008,10 +1008,10 @@
                 return;
             }
 
-            let content = `跨地区 ERC-20 → TRC-20 交易记录\n`;
+            let content = `跨地区TRC-10 → TRC-10 交易记录\n`;
             content += `生成时间：${formatTime(getUtcTime())}\n`;
             content += `========================================================================\n`;
-            content += `交易ID\t用户\t发起地区\t金额(ERC-20)\t到账(TRC-20)\t汇率\tTRC-20账户\t账户备注\t状态\t时间(UTC)\t密码验证\n`;
+            content += `交易ID\t用户\t发起地区\t金额(TRC-10)\t到账(TRC-10)\t汇率\TRC-10账户\t账户备注\t状态\t时间(UTC)\t密码验证\n`;
 
             state.transactions.forEach(trade => {
                 const accountNote = state.accountNotes[trade.account] || '无';
@@ -1030,10 +1030,10 @@
                 return;
             }
 
-            let content = `TRC-20 账户余额表\n`;
+            let content = `TRC-10 账户余额表\n`;
             content += `生成时间：${formatTime(getUtcTime())}\n`;
             content += `========================================================================\n`;
-            content += `序号\t账户地址\t账户备注\t余额(TRC-20)\t状态\t账户类型\n`;
+            content += `序号\t账户地址\t账户备注\t余额(TRC-10)\t状态\t账户类型\n`;
 
             // 按余额降序排序
             const sortedAccounts = state.manualAccounts.sort((a, b) => {
@@ -1056,7 +1056,7 @@
             content += `========================================================================\n`;
             content += `总账户数：${totalAccounts}（均为手工添加）\n`;
             content += `活跃账户数：${activeCount}/${totalAccounts}\n`;
-            content += `总余额：${totalBalance.toFixed(6)} TRC-20\n`;
+            content += `总余额：${totalBalance.toFixed(6)} TRC-10\n`;
 
             downloadFile(content, '账户余额表.txt');
             addLog('导出账户余额成功', 'success');
@@ -1138,7 +1138,7 @@
 
                 // 验证地址有效性
                 if (!isValidTRC20Address(address)) {
-                    manualAccountError.textContent = '无效的TRC-20地址！必须以T开头，且长度为34位';
+                    manualAccountError.textContent = '无效的TRC-10地址！必须以T开头，且长度为34位';
                     manualAccountError.classList.add('show');
                     manualAccountSuccess.classList.remove('show');
                     return;
@@ -1218,7 +1218,7 @@
 
                 // 验证地址有效性
                 if (!isValidTRC20Address(address)) {
-                    newAccountError.textContent = '无效的TRC-20地址！必须以T开头，且长度为34位';
+                    newAccountError.textContent = '无效的TRC-10地址！必须以T开头，且长度为34位';
                     newAccountError.classList.add('show');
                     return;
                 }
@@ -1294,7 +1294,7 @@
                 document.getElementById('password-error').classList.remove('show');
             });
 
-            addLog('初始化完成，系统仅支持手工添加TRC-20账户', 'success');
+            addLog('初始化完成，系统仅支持手工添加TRC-10账户', 'success');
             addLog('手工输入账户功能已启用，支持添加/删除/管理自定义账户', 'info');
         }
         
